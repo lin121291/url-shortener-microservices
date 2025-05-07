@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: shorten-service
+  namespace: url-shortener
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: shorten-service
+  template:
+    metadata:
+      labels:
+        app: shorten-service
+    spec:
+      containers:
+        - name: shorten-service
+          image: shorten-service:latest
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8081
+          env:
+            - name: PORT
+              value: "8081"
+            - name: DB_HOST
+              value: "postgres"
+            - name: DB_PORT
+              value: "5432"
+            - name: DB_USER
+              value: "urlshortener"
+            - name: DB_PASSWORD
+              value: "secretpassword"
+            - name: DB_NAME
+              value: "urlshortener"
+            - name: REDIS_HOST
+              value: "redis"
+            - name: REDIS_PORT
+              value: "6379"
