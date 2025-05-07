@@ -16,21 +16,16 @@ A microservices-based URL shortening system written in Go, designed to explore s
                          |      API Gateway   |        (Port: 8080)
                          +----+-----------+---+
                               |           |
-              POST /shorten  |           | GET /:code
+               POST /shorten  |           | GET /:code
                               v           v
-               +--------------+        +----------------+
+                 +--------------+        +----------------+
                | Shorten Service |      | Redirect Service |
                |   (Port: 8081)  |      |   (Port: 8082)    |
                +--------+-------+      +---------+--------+
                         |                        |
-              +---------v--------+     +--------v---------+
+              +---------v--------+      +--------v---------+
               |     PostgreSQL    |     |      Redis       |
-              +------------------+     +------------------+
-
-                          ⬇️ (Future Extension)
-                    +------------------------+
-                    |   Analytics Service    |
-                    +------------------------+
+              +------------------+      +------------------+
 ```
 
 ---
