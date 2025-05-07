@@ -1,11 +1,12 @@
-FROM golang:1.23-alpine AS builder
+FROM golang:1.24-alpine AS builder
 
 WORKDIR /app
 
-COPY go.mod go.sum ./
+COPY shorten-service/go.mod shorten-service/go.sum ./
+COPY common ../common
 RUN go mod download
 
-COPY . .
+COPY shorten-service .
 RUN CGO_ENABLED=0 GOOS=linux go build -o shorten-service .
 
 FROM alpine:latest
